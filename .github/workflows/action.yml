@@ -16,6 +16,7 @@ jobs:
         run: branch=main
       - run: |
           echo $GITHUB_HEAD_REF
+          git branch
           git show-ref --quiet $GITHUB_HEAD_REF
           if [ $? -eq 0 ]; then
             echo branch=$GITHUB_HEAD_REF
