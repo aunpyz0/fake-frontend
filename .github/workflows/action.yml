@@ -18,7 +18,8 @@ jobs:
           branches=$(git branch)
           found=1
           echo ${{ github.head_ref }}
-          git branch
+          git branch >> branches.txt
+          cat branches.txt
           echo $(git branch)
           echo $branches
           echo there
