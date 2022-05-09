@@ -25,7 +25,7 @@ jobs:
         run: |
           branch=main
           found=${{ steps.check.outputs.found }}
-          if [ "$found" -eq "1" ]; then
+          if [[ $found -eq 1 ]]; then
             branch=${{ github.head_ref }}
           fi
           echo branch $branch
