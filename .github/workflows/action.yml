@@ -29,6 +29,8 @@ jobs:
     needs: find_branch
     runs-on: ubuntu-latest
     steps:
+      - run: echo $BRANCH
+
       - run: echo ${{ env.BACKEND_BRANCH }}
 
       - name: Checkout frontend repository
