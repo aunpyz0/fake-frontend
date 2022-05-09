@@ -3,6 +3,9 @@ name: Action
 on:
   pull_request:
 
+env:
+  BACKEND_BRANCH: ${{ GITHUB_HEAD_REF }}
+
 jobs:
   find_branch:
     name: Find a matching backend branch
