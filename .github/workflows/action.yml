@@ -7,25 +7,27 @@ jobs:
   find_branch:
     name: Find a matching backend branch
     runs-on: ubuntu-latest
+    outputs:
+      backend_branch: ${{ steps.backend.branch_name }}
     steps:
       - name: Checkout backend repository
         uses: actions/checkout@v3
         with:
           repository: aunpyz0/fake-backend
-      - run: |
-          echo ${{ env.BACKEND_BRANCH }}
+      - id: backend 
+        run: |
+          BRANCH=main
           if $(git show-ref --quiet $GITHUB_HEAD_REF); then
-            echo "BACKEND_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
+            echo BRANCH=$GITHUB_HEAD_REF
           fi
-          echo ${{ env.BACKEND_BRANCH }}
-      - run: echo "${{ env.BACKEND_BRANCH }}"
+          echo "::set-output name=branch_name::$BRANCH"
 
   backend_action:
     name: Backend repository run action command
     needs: find_branch
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ env.BACKEND_BRANCH }}"
+      - run: echo "${{ needs.find_branch.outputs.backend_branch }}"
 
       - name: Checkout frontend repository
         uses: actions/checkout@v3
@@ -34,7 +36,7 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: aunpyz0/fake-backend
-          ref: ${{ env.BACKEND_BRANCH }}
+          ref: ${{ needs.find_branch.outputs.backend_branch }}
           path: backend
 
       - name: Run action
