@@ -13,7 +13,7 @@ jobs:
         with:
           repository: aunpyz0/fake-backend
       - run: |
-          echo git remote -v
+          echo $(git remote -v)
           echo $GITHUB_HEAD_REF
           BRANCH=main
           if git show-ref --quiet $GITHUB_HEAD_REF; then
