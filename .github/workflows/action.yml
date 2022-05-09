@@ -26,7 +26,7 @@ jobs:
     needs: find_branch
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ needs.find_branch.steps.branch.name }}"
+      - run: echo "${{ needs.find_branch.steps.branch.outputs.name }}"
 
       - name: Checkout frontend repository
         uses: actions/checkout@v3
