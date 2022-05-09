@@ -18,7 +18,7 @@ jobs:
           branches=$(git branch)
           found=1
           echo ${{ github.head_ref }}
-          echo $(git branch) | grep main
+          echo $(git branch) | grep feature/change
           echo there
           echo $branches
           echo $branches | grep ${{ github.head_ref }}
