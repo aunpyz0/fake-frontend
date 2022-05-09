@@ -15,17 +15,17 @@ jobs:
       - run: |
           echo ${{ env.BACKEND_BRANCH }}
           if $(git show-ref --quiet $GITHUB_HEAD_REF); then
-            echo "BACKEND_BRANCH=$GITHUB_HEAD_REF" >> $env:GITHUB_ENV
+            echo "BACKEND_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
           fi
           echo ${{ env.BACKEND_BRANCH }}
-      - run: echo ${{ env.BACKEND_BRANCH }}
+      - run: echo "${{ env.BACKEND_BRANCH }}"
 
   backend_action:
     name: Backend repository run action command
     needs: find_branch
     runs-on: ubuntu-latest
     steps:
-      - run: echo ${{ env.BACKEND_BRANCH }}
+      - run: echo "${{ env.BACKEND_BRANCH }}"
 
       - name: Checkout frontend repository
         uses: actions/checkout@v3
