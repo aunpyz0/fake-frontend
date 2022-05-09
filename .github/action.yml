@@ -1,0 +1,35 @@
+name: Action
+
+on:
+	pull_request:
+
+jobs:
+	find_branch:
+		name: Find a matching backend branch
+		steps:
+			- name: Checkout backend repository
+			  uses: actions/checkout@v3
+			  with:
+				repository: aunpyz0/fake-backend
+			  run: |
+				if git show-ref --quiet $GITHUB_HEAD_REF; then
+					echo "BACKEND_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
+				else
+					echo "BACKEND_BRANCH=main" >> $GITHUB_ENV
+				fi
+	backend_action:
+		name: Backend repository run action command
+		runs-on: ubuntu-latest
+		steps:
+			- name: Checkout frontend repository
+			  uses: actions/checkout@v3
+			- name: Checkout backend repository
+			  uses: actions/checkout@v3
+			  with:
+				repository: aunpyz0/fake-backend
+				ref: ${{ env.BACKEND_BRANCH }}
+				path: backend
+			- name: Run action
+			  run: |
+				cd backend
+				yarn action
