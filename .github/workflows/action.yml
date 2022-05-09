@@ -15,11 +15,7 @@ jobs:
       - name: Set fallback branch
         run: branch=main
       - run: |
-          git remote -v
           git show-ref --quiet $GITHUB_HEAD_REF
-          if [ $? -eq 0 ]; then
-            echo branch=$GITHUB_HEAD_REF
-          fi
       - id: branch 
         name: Set output
         run: echo ::set-output name=name::$branch
