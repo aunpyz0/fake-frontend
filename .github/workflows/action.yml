@@ -26,7 +26,7 @@ jobs:
           if [ ${{ steps.check.outputs.found }} -eq 1 ]; then
             branch=${{ github.head_ref }}
           fi
-          echo ::set-output name=name::main
+          echo ::set-output name=name::$branch
     outputs:
       branch_name: ${{ steps.branch.outputs.name }}
 
