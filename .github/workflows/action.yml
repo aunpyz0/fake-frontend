@@ -15,9 +15,9 @@ jobs:
       - id: branch 
         run: |
           branch=main
-          echo $GITHUB_HEAD_REF
-          git show-ref --quiet non-existed
-          if [ $? -eq 0 ]; then
+          found=1
+          git show-ref --quiet non-existed || found=0
+          if [ $found -eq 1 ]; then
             branch=$GITHUB_HEAD_REF
           fi
           echo ::set-output name=name::$branch
