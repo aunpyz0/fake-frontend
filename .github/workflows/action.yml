@@ -13,28 +13,20 @@ jobs:
         with:
           repository: aunpyz0/fake-backend
           fetch-depth: 0
-      - id: branch 
+      - id: check
+        name: Check branch existence
+        run: |
+          found=1
+          git show-ref --quiet ${{ github.head_ref }} || found=0
+          echo ::set-outut name=found::$found
+      - id: branch
+        name: Set backend branch
         run: |
           branch=main
-          branches=$(git branch --all)
-          found=1
-          echo ${{ github.head_ref }}
-          git branch --all >> branches.txt
-          echo read start
-          cat branches.txt
-          echo read done
-          echo $branches
-          echo hi
-          git show-ref --quiet ${{ github.head_ref }}
-          echo $?
-          if [ $found -eq 1 ]; then
-            echo here
+          if [ ${{ steps.check.outputs.found }} -eq 1 ]; then
             branch=${{ github.head_ref }}
-          fi
-          echo there
-          echo $branch
-          echo ::set-output name=name::$branch
-      - run: echo ${{ steps.branch.outputs.name }}
+          else
+          echo ::set-output name=name::main
     outputs:
       branch_name: ${{ steps.branch.outputs.name }}
 
