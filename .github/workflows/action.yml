@@ -4,7 +4,7 @@ on:
   pull_request:
 
 env:
-  BACKEND_BRANCH: ${{ GITHUB_HEAD_REF }}
+  BACKEND_BRANCH: main
 
 jobs:
   find_branch:
@@ -17,14 +17,11 @@ jobs:
           repository: aunpyz0/fake-backend
       - run: |
           echo ${{ env.BACKEND_BRANCH }}
-          echo $(git remote -v)
-          echo $GITHUB_HEAD_REF
-          BRANCH=$GITHUB_HEAD_REF
-          if git show-ref --quiet $GITHUB_HEAD_REF; then
-            BRANCH=main
+          git show-ref --quiet $GITHUB_HEAD_REF
+          if [ $? = 0 ]
+          then
+            echo "BACKEND_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
           fi
-          echo "BACKEND_BRANCH=$BRANCH" >> $GITHUB_ENV
-          echo "BRANCH = $BRANCH"
           echo ${{ env.BACKEND_BRANCH }}
 
   backend_action:
