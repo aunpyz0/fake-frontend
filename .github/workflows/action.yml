@@ -12,11 +12,11 @@ jobs:
 			  with:
 				repository: aunpyz0/fake-backend
 			  run: |
-				if git show-ref --quiet $GITHUB_HEAD_REF; then
-					echo "BACKEND_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
-				else
-					echo "BACKEND_BRANCH=main" >> $GITHUB_ENV
-				fi
+					if git show-ref --quiet $GITHUB_HEAD_REF; then
+						echo "BACKEND_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
+					else
+						echo "BACKEND_BRANCH=main" >> $GITHUB_ENV
+					fi
 	backend_action:
 		name: Backend repository run action command
 		runs-on: ubuntu-latest
@@ -31,5 +31,5 @@ jobs:
 				path: backend
 			- name: Run action
 			  run: |
-				cd backend
-				yarn action
+					cd backend
+					yarn action
