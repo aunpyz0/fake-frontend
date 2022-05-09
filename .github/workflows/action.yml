@@ -7,8 +7,6 @@ jobs:
   find_branch:
     name: Find a matching backend branch
     runs-on: ubuntu-latest
-    outputs:
-      backend_branch: ${{ steps.backend.branch_name }}
     steps:
       - name: Checkout backend repository
         uses: actions/checkout@v3
@@ -20,7 +18,8 @@ jobs:
           if $(git show-ref --quiet $GITHUB_HEAD_REF); then
             echo BRANCH=$GITHUB_HEAD_REF
           fi
-          echo "::set-output name=branch_name::$BRANCH"
+          echo ::set-output name=branch_name::$BRANCH
+      - run: echo ${{ steps.backend.outputs.branch_name }}
 
   backend_action:
     name: Backend repository run action command
