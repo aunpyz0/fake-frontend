@@ -15,8 +15,9 @@ jobs:
       - id: branch 
         run: |
           branch=main
+          base_branch=$GITHUB_HEAD_REF
           found=1
-          git show-ref --quiet $GITHUB_HEAD_REF || found=0
+          git show-ref --quiet $base_branch
           if [ $found -eq 1 ]; then
             branch=$GITHUB_HEAD_REF
           fi
