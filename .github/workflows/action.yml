@@ -15,18 +15,20 @@ jobs:
       - id: branch 
         run: |
           BRANCH=main
-          if !$(git show-ref --quiet $GITHUB_HEAD_REF); then
+          if $(git show-ref --quiet $GITHUB_HEAD_REF); then
             echo BRANCH=$GITHUB_HEAD_REF
           fi
           echo ::set-output name=name::$BRANCH
       - run: echo ${{ steps.branch.outputs.name }}
+    outputs:
+      branch_name: ${{ steps.branch.outputs.name }}
 
   backend_action:
     name: Backend repository run action command
     needs: find_branch
     runs-on: ubuntu-latest
     steps:
-      - run: echo "${{ needs.find_branch.steps.branch.outputs.name }}"
+      - run: echo "${{ needs.find_branch.outputs.branch_name }}"
 
       - name: Checkout frontend repository
         uses: actions/checkout@v3
