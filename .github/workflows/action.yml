@@ -16,10 +16,10 @@ jobs:
         run: |
           branch=main
           found=1
-          echo $GITHUB_REF_NAME
-          git show-ref --quiet "$GITHUB_REF_NAME"
+          echo $GITHUB_HEAD_REF
+          git show-ref --quiet ${{ GITHUB_HEAD_REF }}
           if [ $found -eq 1 ]; then
-            branch=$GITHUB_REF_NAME
+            branch=${{ GITHUB_HEAD_REF }}
           fi
           echo ::set-output name=name::$branch
       - run: echo ${{ steps.branch.outputs.name }}
