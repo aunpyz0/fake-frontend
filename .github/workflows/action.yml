@@ -24,7 +24,8 @@ jobs:
         name: Set backend branch
         run: |
           branch=main
-          if [ "${{ steps.check.outputs.found" }} -eq "1" ]; then
+          found=${{ steps.check.outputs.found }}
+          if [ $found -eq 1 ]; then
             branch=${{ github.head_ref }}
           fi
           echo branch $branch
