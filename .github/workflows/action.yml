@@ -19,6 +19,7 @@ jobs:
           found=1
           echo ${{ github.head_ref }}
           echo there
+          echo $branches
           echo $branches | grep ${{ github.head_ref }}
           echo hi
           git show-ref --quiet ${{ github.head_ref }}
