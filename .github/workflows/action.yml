@@ -18,6 +18,7 @@ jobs:
         run: |
           found=1
           git show-ref --quiet ${{ github.head_ref }} || found=0
+          echo found $found
           echo ::set-outut name=found::$found
       - id: branch
         name: Set backend branch
@@ -26,6 +27,7 @@ jobs:
           if [ ${{ steps.check.outputs.found }} -eq 1 ]; then
             branch=${{ github.head_ref }}
           fi
+          echo branch $branch
           echo ::set-output name=name::$branch
     outputs:
       branch_name: ${{ steps.branch.outputs.name }}
@@ -35,16 +37,15 @@ jobs:
     needs: find_branch
     runs-on: ubuntu-latest
     steps:
+      - run: echo ${{ needs.find_branch.outputs.branch_name }}
       - name: Checkout frontend repository
         uses: actions/checkout@v3
-
       - name: Checkout backend repository
         uses: actions/checkout@v3
         with:
           repository: aunpyz0/fake-backend
           ref: ${{ needs.find_branch.outputs.branch_name }}
           path: backend
-
       - name: Run action
         run: |
           cd backend
