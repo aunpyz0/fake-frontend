@@ -24,6 +24,7 @@ jobs:
         name: Set backend branch
         run: |
           branch=main
+          echo ${{ steps.check.outputs.found }}
           found=${{ steps.check.outputs.found }}
           echo $found
           if [[ $found -eq 1 ]]; then
