@@ -16,6 +16,7 @@ jobs:
         run: |
           branch=main
           found=1
+          git show-ref --quiet main
           echo $GITHUB_HEAD_REF
           echo ${{ github.head_ref }}
           git show-ref --quiet ${{ github.head_ref }}
