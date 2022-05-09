@@ -15,11 +15,11 @@ jobs:
 
       - run: |
           echo $GITHUB_HEAD_REF
-          BACKEND_BRANCH=main
+          BRANCH=main
           if git show-ref --quiet $GITHUB_HEAD_REF; then
-            BACKEND_BRANCH=$GITHUB_HEAD_REF
+            BRANCH=$GITHUB_HEAD_REF
           fi
-          echo $BACKEND_BRANCH >> $GITHUB_ENV
+          echo "BACKEND_BRANCH=$BRANCH" >> $GITHUB_ENV
 
   backend_action:
     name: Backend repository run action command
