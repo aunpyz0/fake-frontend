@@ -17,7 +17,7 @@ jobs:
           echo $GITHUB_HEAD_REF
           BACKEND_BRANCH=main
           if git show-ref --quiet $GITHUB_HEAD_REF; then
-            $BACKEND_BRANCH=$GITHUB_HEAD_REF
+            BACKEND_BRANCH=$GITHUB_HEAD_REF
           fi
           echo $BACKEND_BRANCH >> $GITHUB_ENV
 
