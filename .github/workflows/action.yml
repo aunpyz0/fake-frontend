@@ -17,9 +17,7 @@ jobs:
           repository: aunpyz0/fake-backend
       - run: |
           echo ${{ env.BACKEND_BRANCH }}
-          git show-ref --quiet $GITHUB_HEAD_REF
-          if [ $? = 0 ]
-          then
+          if $(git show-ref --quiet $GITHUB_HEAD_REF); then
             echo "BACKEND_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
           fi
           echo ${{ env.BACKEND_BRANCH }}
