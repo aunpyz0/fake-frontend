@@ -22,6 +22,7 @@ jobs:
           fi
           echo "BACKEND_BRANCH=$BRANCH" >> $GITHUB_ENV
           echo "BRANCH = $BRANCH"
+          echo ${{ env.BACKEND_BRANCH }}
 
   backend_action:
     name: Backend repository run action command
