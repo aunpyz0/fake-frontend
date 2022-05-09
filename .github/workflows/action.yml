@@ -14,11 +14,13 @@ jobs:
           repository: aunpyz0/fake-backend
       - id: branch 
         run: |
-          BRANCH=main
-          if $(git show-ref --quiet $GITHUB_HEAD_REF); then
-            echo BRANCH=$GITHUB_HEAD_REF
+          branch=main
+          git show-ref --quiet $GITHUB_HEAD_REF > /dev/null
+          if [ $? -eq 0 ]
+          then
+            echo branch=$GITHUB_HEAD_REF
           fi
-          echo ::set-output name=name::$BRANCH
+          echo ::set-output name=name::$branch
       - run: echo ${{ steps.branch.outputs.name }}
     outputs:
       branch_name: ${{ steps.branch.outputs.name }}
