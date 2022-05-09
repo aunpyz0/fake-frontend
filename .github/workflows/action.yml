@@ -16,7 +16,7 @@ jobs:
         run: |
           branch=main
           found=1
-          git checkout ${{ github.head_ref }}
+          git branch --all
           echo $GITHUB_HEAD_REF
           echo ${{ github.head_ref }}
           git show-ref --quiet ${{ github.head_ref }}
