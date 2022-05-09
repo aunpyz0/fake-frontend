@@ -12,16 +12,15 @@ jobs:
         uses: actions/checkout@v3
         with:
           repository: aunpyz0/fake-backend
-      - name: Set fallback branch
-        run: branch=main
-      - run: |
-          echo $GITHUB_HEAD_REF
-          if [ $? -eq 0 ]; then
-            echo branch=$GITHUB_HEAD_REF
-          fi
       - id: branch 
-        name: Set output
-        run: echo ::set-output name=name::$branch
+        run: |
+          branch=main
+          echo $GITHUB_HEAD_REF
+          git show-ref --quiet
+          if [ $? -eq 0 ]; then
+            branch=$GITHUB_HEAD_REF
+          fi
+          echo ::set-output name=name::$branch
       - run: echo ${{ steps.branch.outputs.name }}
     outputs:
       branch_name: ${{ steps.branch.outputs.name }}
