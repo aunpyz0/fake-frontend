@@ -30,6 +30,6 @@ jobs:
           ref: ${{ env.BACKEND_BRANCH }}
           path: backend
       - name: Run action
-      - run: |
+        run: |
           cd backend
           yarn action
