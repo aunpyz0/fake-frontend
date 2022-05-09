@@ -10,7 +10,7 @@ jobs:
       - name: Checkout backend repository
         uses: actions/checkout@v3
         with:
-        repository: aunpyz0/fake-backend
+          repository: aunpyz0/fake-backend
         run: |
           if git show-ref --quiet $GITHUB_HEAD_REF; then
             echo "BACKEND_BRANCH=$GITHUB_HEAD_REF" >> $GITHUB_ENV
@@ -26,9 +26,9 @@ jobs:
       - name: Checkout backend repository
         uses: actions/checkout@v3
         with:
-        repository: aunpyz0/fake-backend
-        ref: ${{ env.BACKEND_BRANCH }}
-        path: backend
+          repository: aunpyz0/fake-backend
+          ref: ${{ env.BACKEND_BRANCH }}
+          path: backend
       - name: Run action
         run: |
           cd backend
