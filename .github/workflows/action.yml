@@ -19,7 +19,9 @@ jobs:
           found=1
           echo ${{ github.head_ref }}
           git branch >> branches.txt
+          echo read start
           cat branches.txt
+          echo read done
           echo $(git branch)
           echo $branches
           echo there
