@@ -25,7 +25,9 @@ jobs:
             found=0
           else
             echo ${{ steps.read_branch.outputs.value }}
-            git show-ref --quiet ${{ steps.read_branch.outputs.value }} || found=0
+            git show-ref --quiet ${{ steps.read_branch.outputs.value }} \
+              && found=1 \
+              || found=0
             echo found ${{ steps.read_branch.outputs.value }} $found
           fi
           echo ::set-output name=found::$found
