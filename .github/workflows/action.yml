@@ -33,8 +33,8 @@ jobs:
             found=1
             git show-ref --quiet ${{ github.head_ref }} || found=0
             echo found ${{ github.head_ref }} $found
-            echo ::set-output name=found::$found
           fi
+          echo ::set-output name=found::$found
       - id: branch
         name: Set backend branch
         run: |
