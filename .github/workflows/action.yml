@@ -18,7 +18,7 @@ jobs:
         uses: begedin/variable-regex-extractor-action@v0.2.1
         with:
           pattern: |
-			backend: "([^\s]+)"
+            backend: "([^\s]+)"
       - id: check
         name: Check branch existence
         run: |
