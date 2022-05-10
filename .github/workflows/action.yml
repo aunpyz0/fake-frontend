@@ -29,8 +29,8 @@ jobs:
       - id: check
         name: Check branch existence
         run: |
+          found=1
           if [[ ${{ steps.check_pr_branch.outputs.found }} -ne 1 ]]; then
-            found=1
             git show-ref --quiet ${{ github.head_ref }} || found=0
             echo found ${{ github.head_ref }} $found
           fi
