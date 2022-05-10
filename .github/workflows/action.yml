@@ -17,8 +17,7 @@ jobs:
         name: Read target backend branch from PR body
         uses: begedin/variable-regex-extractor-action@v0.2.1
         with:
-          pattern: |
-            backend: "([^\s]+)"
+          pattern: "backend: \"([^\\s]+)\""
       - id: check
         name: Check branch existence
         run: |
