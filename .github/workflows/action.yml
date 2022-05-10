@@ -18,22 +18,30 @@ jobs:
         uses: begedin/variable-regex-extractor-action@v0.2.1
         with:
           pattern: "backend: \"([^\\s]+)\""
-      - id: check
-        name: Check branch existence
+      - id: check_pr_branch
+        name: Check branch in PR body
         run: |
           found=1
           echo ${{ steps.read_branch.outputs.value }}
-          git show-ref --quiet ${{ github.head_ref }} || found=0
-          echo found $found
+          git show-ref --quiet ${{ steps.read_branch.outputs.value }} || found=0
+          echo found ${{ steps.read_branch.outputs.value }} $found
           echo ::set-output name=found::$found
+      - id: check
+        name: Check branch existence
+        run: |
+          if [[ ${{ steps.check_pr_branch.outputs.found }} -ne 1 ]]; then
+            found=1
+            git show-ref --quiet ${{ github.head_ref }} || found=0
+            echo found ${{ github.head_ref }} $found
+            echo ::set-output name=found::$found
+          fi
       - id: branch
         name: Set backend branch
         run: |
           branch=main
-          echo ${{ steps.check.outputs.found }}
-          found=${{ steps.check.outputs.found }}
-          echo $found
-          if [[ $found -eq 1 ]]; then
+          if [[ ${{ steps.check_pr_branch.outputs.found }} -eq 1 ]]; then
+            branch=${{ github.read_branch.outputs.value }}
+          elif [[ ${{ steps.check.outputs.found }} -eq 1 ]]; then
             branch=${{ github.head_ref }}
           fi
           echo branch $branch
