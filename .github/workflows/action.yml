@@ -40,7 +40,7 @@ jobs:
         run: |
           branch=main
           if [[ ${{ steps.check_pr_branch.outputs.found }} -eq 1 ]]; then
-            branch=${{ github.read_branch.outputs.value }}
+            branch=${{ steps.read_branch.outputs.value }}
           elif [[ ${{ steps.check.outputs.found }} -eq 1 ]]; then
             branch=${{ github.head_ref }}
           fi
