@@ -21,7 +21,7 @@ jobs:
       - id: check_pr_branch
         name: Check branch in PR body
         run: |
-          if [[ ${{ steps.read_branch.outputs.value }} == "" ]]; then
+          if [[ "${{ steps.read_branch.outputs.value }}" == "" ]]; then
             found=0
           else
             echo ${{ steps.read_branch.outputs.value }}
