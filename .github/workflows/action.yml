@@ -21,10 +21,13 @@ jobs:
       - id: check_pr_branch
         name: Check branch in PR body
         run: |
-          found=1
-          echo ${{ steps.read_branch.outputs.value }}
-          git show-ref --quiet ${{ steps.read_branch.outputs.value }} || found=0
-          echo found ${{ steps.read_branch.outputs.value }} $found
+          if [[ ${{ steps.read_branch.outputs.value }} == "" ]]; then
+            found=0
+          else
+            echo ${{ steps.read_branch.outputs.value }}
+            git show-ref --quiet ${{ steps.read_branch.outputs.value }} || found=0
+            echo found ${{ steps.read_branch.outputs.value }} $found
+          fi
           echo ::set-output name=found::$found
       - id: check
         name: Check branch existence
